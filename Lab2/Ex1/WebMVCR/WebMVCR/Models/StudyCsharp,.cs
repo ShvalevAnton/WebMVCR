@@ -10,8 +10,8 @@
         public AccountType accType;
 
         public override string ToString() 
-        { 
-            string res = String.Format("Номер счета {0}, баланс {1}, тип {2}", accNo, accBal, accType); 
+        {
+            string res = String.Format($"Номер счета {accNo}, баланс {accBal}, тип {accType}"); 
             return res; 
         }
     }
