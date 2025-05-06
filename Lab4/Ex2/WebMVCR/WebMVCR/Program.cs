@@ -1,6 +1,7 @@
 // Создание экземпляра компановщика WebApplicationBuilder, который собирает настройки конфигурирование, журналирование, сервисы, размещение будущего приложения
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Регистрирование необходимых служб и конфигурации с помощью WebApplicationBuilder в OS
 builder.Services.AddControllersWithViews();
 
@@ -9,6 +10,8 @@ var app = builder.Build();
 
 // Добавление промежуточного ПО в веб-приложение, чтобы создать конвейер;
 
+// Подключаем middleware для статических файлов
+app.UseStaticFiles();
 
 
 // Сопоставление конечных точек приложения;
