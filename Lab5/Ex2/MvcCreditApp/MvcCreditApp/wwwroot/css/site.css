@@ -20,3 +20,9 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+table {
+    border: 6px solid silver;
+    vertical-align: middle;
+    text-align: center;
+}
