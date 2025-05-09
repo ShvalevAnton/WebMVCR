@@ -46,16 +46,16 @@ namespace MvcCreditApp.Controllers
         [HttpPost]
         public string CreateBid(Bid newBid)
         {
-            newBid.bidDate = DateTime.Now; 
+            newBid.bidDate = DateTime.Now;
             // Добавляем новую заявку в БД 
-            db.Bids.Add(newBid); 
+            db.Bids.Add(newBid);
             // Сохраняем в БД все изменения 
-            db.SaveChanges(); 
+            db.SaveChanges();
             return "Спасибо, " + newBid.Name + ", за выбор нашего банка. Ваша заявка будет рассмотрена в течении 10 дней.";
-        }
+        }      
 
 
-            [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
