@@ -1,0 +1,59 @@
+﻿@model IEnumerable<StudentProgressRecordingSystem.Models.Student>
+
+@{
+    ViewData["Title"] = "Студенты";
+}
+
+<h1>Студент</h1>
+
+<p>
+    <a asp-action="Create">Создать нового студента</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MiddleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Group)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EnrollmentDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MiddleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Group)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnrollmentDate)
+            </td>
+            <td>
+                    <a asp-action="Edit" asp-route-id="@item.StudentId">Редактировать</a> |
+                    <a asp-action="Details" asp-route-id="@item.StudentId">Подробности</a> |
+                    <a asp-action="Delete" asp-route-id="@item.StudentId">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

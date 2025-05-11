@@ -1,7 +1,8 @@
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using MvcCreditApp.Data;
-using MvcCreditApp.Models;
+using StudentProgressRecordingSystem.Data;
+using StudentProgressRecordingSystem.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,21 +11,15 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<CreditContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("CreditContext") ?? 
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbContext") ?? 
     throw new InvalidOperationException("Connection string 'CreditContext' not found.")));
 
-builder.Services.AddOutputCache();
 
 var app = builder.Build();
-
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    SeedData.Initialize(services);
-}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -44,8 +39,6 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
-app.UseOutputCache(); // —трока должна располагатьс€ после UseAuthorization(), но до MapControllerRoute()
 
 app.MapControllerRoute(
     name: "default",

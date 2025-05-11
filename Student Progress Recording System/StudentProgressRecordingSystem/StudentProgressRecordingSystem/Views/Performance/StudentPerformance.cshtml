@@ -1,0 +1,73 @@
+﻿@{
+    var student = ViewBag.Student as StudentProgressRecordingSystem.Models.Student;
+    ViewData["Title"] = $"Успеваемость студента {student.FullName}";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4>Успеваемость по предметам</h4>
+            </div>
+            <div class="card-body">
+                @if (ViewBag.PerformanceBySubject.Count > 0)
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Предмет</th>
+                                <th>Оценки</th>
+                                <th>Средний балл</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.PerformanceBySubject)
+                            {
+                                <tr>
+                                    <td>@item.Subject.Name</td>
+                                    <td>@string.Join(", ", item.Grades)</td>
+                                    <td>@item.AverageGrade.ToString("0.00")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <div class="alert alert-warning">
+                        Нет данных об оценках.
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h4>Общая статистика</h4>
+            </div>
+            <div class="card-body">
+                @{
+                    var performance = ViewBag.PerformanceBySubject as IEnumerable<dynamic>;
+                    var hasGrades = performance != null && performance.Any();
+                }
+                <p>
+                    <strong>Общий средний балл:</strong>
+                    @(hasGrades ? performance.Average(p => (double)p.AverageGrade).ToString("0.00") : "нет данных")
+                </p>
+                <p>
+                    <strong>Лучший предмет:</strong>
+                    @(hasGrades ? performance.OrderByDescending(p => (double)p.AverageGrade).First().Subject.Name : "нет данных")
+                </p>
+                <p>
+                    <strong>Слабый предмет:</strong>
+                    @(hasGrades ? performance.OrderBy(p => (double)p.AverageGrade).First().Subject.Name : "нет данных")
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a asp-action="AllStudents" class="btn btn-secondary mt-3">Назад к списку</a>

@@ -1,0 +1,51 @@
+﻿@model StudentProgressRecordingSystem.Models.Grade
+
+@{
+    ViewData["Title"] = "Удалить";
+}
+
+<h1>Удалить</h1>
+
+<h3>Вы уверены, что хотите это удалить?</h3>
+<div>
+    <h4>Grade</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Student)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Student.FirstName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Subject)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Subject.SubjectId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Score)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Score)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Comments)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Comments)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="GradeId" />
+        <input type="submit" value="Удалить" class="btn btn-danger" /> |
+        <a asp-action="Index">Назад</a>
+    </form>
+</div>

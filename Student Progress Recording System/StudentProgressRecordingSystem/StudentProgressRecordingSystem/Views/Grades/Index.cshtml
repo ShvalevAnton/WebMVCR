@@ -1,0 +1,65 @@
+﻿@model IEnumerable<StudentProgressRecordingSystem.Models.Grade>
+
+@{
+    ViewData["Title"] = "Оценки";
+}
+
+<h1>Оценка</h1>
+
+<p>
+    <a asp-action="Create">Создать новую оценку</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Student.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Student.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Subject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Score)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comments)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subject.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Score)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comments)
+            </td>
+            <td>
+                    <a asp-action="Edit" asp-route-id="@item.GradeId">Редактировать</a> |
+                    <a asp-action="Details" asp-route-id="@item.GradeId">Подробности</a> |
+                    <a asp-action="Delete" asp-route-id="@item.GradeId">Удалить</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

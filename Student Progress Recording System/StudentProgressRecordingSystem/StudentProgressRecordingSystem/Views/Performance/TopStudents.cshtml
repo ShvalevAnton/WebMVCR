@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewData["Title"] = ViewBag.Title;
+}
+
+<h1><i class="bi bi-trophy"></i> @ViewBag.Title</h1>
+
+<table class="table table-success table-striped">
+    <thead>
+        <tr>
+            <th>Место</th>
+            <th>ФИО студента</th>
+            <th>Средний балл</th>
+            <th>Оценки</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int place = 1;
+            foreach (var item in ViewBag.Students)
+            {
+                <tr>
+                    <td>
+                        @if (place == 1)
+                        {
+                            <span class="badge bg-gold">1 🥇</span>
+                        }
+                        else if (place == 2)
+                        {
+                            <span class="badge bg-silver">2 🥈</span>
+                        }
+                        else if (place == 3)
+                        {
+                            <span class="badge bg-bronze">3 🥉</span>
+                        }
+                        else
+                        {
+                            @place
+                        }
+                    </td>
+                    <td>@item.FullName</td>
+                    <td>@item.AverageGrade.ToString("0.00")</td>
+                    <td>@string.Join(", ", item.Grades)</td>
+                    <td>
+                        <a asp-controller="Students" asp-action="Details" asp-route-id="@item.StudentId"
+                           class="btn btn-info btn-sm">Подробности</a>
+                    </td>
+                </tr>
+                place++;
+            }
+        }
+    </tbody>
+</table>
+
+@if (ViewBag.Students == null || ViewBag.Students.Count == 0)
+{
+    <div class="alert alert-warning">
+        Нет данных о студентах.
+    </div>
+}
+
+<div class="mt-3">
+    <a asp-action="AllStudents" class="btn btn-secondary">Все студенты</a>
+    <a asp-action="BottomStudents" class="btn btn-outline-danger">Худшие студенты</a>
+</div>
+
+<style>
+    .bg-gold { background-color: gold; color: black; }
+    .bg-silver { background-color: silver; color: black; }
+    .bg-bronze { background-color: #cd7f32; color: white; }
+</style>
+
